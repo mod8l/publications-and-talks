@@ -3,48 +3,54 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE)
 [![CI](https://github.com/gadsosa/publications-and-talks/actions/workflows/ci.yml/badge.svg)](https://github.com/gadsosa/publications-and-talks/actions/workflows/ci.yml)
 
-A curated professional portfolio of papers, patents, talks, and media appearances.
+A reading list of the papers, talks, and resources that shaped how I think about production ML, platform engineering, and ML security — plus a template area for my own future publications and talks.
+
+> **Note:** The influential papers and talks listed here are by other people. They are included with attribution because I reference them constantly in my work. My own publications and talks live (when they exist) in [`my-work/`](./my-work/).
 
 <!-- INDEX_START -->
 
-## Papers
+## Influential Papers
 
-| Year | Title | Authors | Venue | Links |
-|------|-------|---------|-------|-------|
-| 2021 | [Streaming Feature Stores for Real-Time Recommendation Systems](papers/2021-recsys/README.md) | gadsosa, A. R. Chen, M. J. Okafor | Proceedings of the 15th ACM Conference on Recommender Systems (RecSys 2021) | [Paper](papers/2021-recsys/README.md), [DOI](https://doi.org/10.1145/3460231.3474233), [Link](https://dl.acm.org/doi/10.1145/3460231.3474233) |
-| 2023 | [Adversarial Robustness of Production Computer Vision Pipelines](papers/2023-neurips-mlsys/README.md) | gadsosa, L. Petrov, S. Nakamura | NeurIPS 2023 Workshop on Machine Learning Systems | [Paper](papers/2023-neurips-mlsys/README.md), [Link](https://arxiv.org/abs/2312.04567) |
+Papers by others that shaped how I think about production ML, platform engineering, and ML security.
 
-## Patents
+| Year | Title | Authors | Why it matters |
+|------|-------|---------|----------------|
+| 2015 | [Hidden Technical Debt in Machine Learning Systems](influential-papers/2015-sculley-ml-technical-debt.md) | D. Sculley, G. Holt, D. Golovin, E. Davydov, T. Phillips, D. Ebner, V. Chaudhary, M. Young, J.-F. Crespo, D. Dennison | This is the paper I hand to engineers who think shipping a model is the finish line. It names the boundary erosion, e... |
+| 2017 | [The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction](influential-papers/2017-breck-ml-test-score.md) | E. Breck, S. Cai, E. Nielsen, M. Salib, D. Sculley | The closest thing ML has to a production readiness checklist. I use its scoring logic as a starting point when I buil... |
+| 2019 | [Software Engineering for Machine Learning: A Case Study](influential-papers/2019-amershi-se4ml.md) | S. Amershi, A. Begel, C. Bird, R. DeLine, H. Gall, E. Kamar, N. Nagappan, B. Nushi, T. Zimmermann | It captures the day-to-day reality of ML teams: version control, data management, and collaboration are harder than m... |
+| 2021 | [OWASP Machine Learning Security Top 10](influential-papers/2021-owasp-ml-top-10.md) | OWASP Foundation | The most practical starting point for ML security conversations. It gives non-technical leaders a vocabulary and give... |
 
-| Filing Date | Title | Inventors | Number | Links |
-|-------------|-------|-----------|--------|-------|
-| 2022-03-14 | [Cost-Aware Scheduling of GPU Inference Workloads Across Heterogeneous Accelerator Pools](patents/2022-gpu-scheduling/README.md) | gadsosa, K. S. Lee, R. M. Patel | US11,847,293 B2 | [Details](patents/2022-gpu-scheduling/README.md), [Record](https://patents.google.com/patent/US11847293B2/) |
+## Influential Talks
 
-## Talks
+Talks, courses, and lectures by others that I return to regularly.
 
-| Date | Title | Event | Location | Resources |
-|------|-------|-------|----------|-----------|
-| 2023-11-08 | [From Notebook to Kubernetes: A Field Guide for ML Engineers](talks/2023-11-notebook-to-kubernetes/README.md) | MLOps World | Austin, TX | [Slides](https://speakerdeck.com/gadsosa/notebook-to-kubernetes) |
-| 2024-09-18 | [Building ML Platforms That Don't Fall Over at 3 AM](talks/2024-09-ml-platforms/README.md) | QCon San Francisco | San Francisco, CA | [Slides](https://speakerdeck.com/gadsosa/ml-platforms-3am), [Recording](https://www.infoq.com/presentations/ml-platforms-reliability/) |
-| 2025-03-12 | [Secure ML: A Checklist for Skeptical Engineers](talks/2025-03-secure-ml/README.md) | KubeCon + CloudNativeCon Europe | London, UK | [Slides](https://speakerdeck.com/gadsosa/secure-ml-checklist), [Recording](https://www.youtube.com/watch?v=example-secure-ml) |
+| Year | Title | Speaker | Why it matters |
+|------|-------|---------|----------------|
+| 2019 | [Machine Learning Systems Design](influential-talks/2019-huyen-ml-systems-design.md) | Chip Huyen | Chip Huyen is one of the clearest writers on the gap between research ML and production ML. Her framing of data, mode... |
+| 2021 | [Designing Machine Learning Systems](influential-talks/2021-jordan-ml-infrastructure.md) | Jeremy Jordan | Jordan’s writing distills the invisible work of ML infrastructure: monitoring, feature platforms, and the feedback lo... |
+| 2022 | [The Missing Link in AI: Production-Ready Machine Learning](influential-talks/2022-catanzaro-missing-link.md) | Sarah Catanzaro | Catanzaro makes the business case for ML infrastructure with unusual clarity. Her argument that model performance dec... |
+
+## My Work
+
+A place for my own papers, patents, and talks. Templates are provided in [`my-work/`](./my-work/); I will replace them with real entries as I publish them.
+
+| Type | Status | Template |
+|------|--------|----------|
+| Papers | Empty | [`my-work/papers/template.md`](./my-work/papers/template.md) |
+| Patents | Empty | [`my-work/patents/template.md`](./my-work/patents/template.md) |
+| Talks | Empty | [`my-work/talks/template.md`](./my-work/talks/template.md) |
 <!-- INDEX_END -->
 
-## About this repository
+## How to use this repo
 
-This repository is a living record of public work. Entries are organized into:
+- **Looking for what I read:** Browse [`influential-papers/`](./influential-papers/) and [`influential-talks/`](./influential-talks/).
+- **Looking for my own work:** Check [`my-work/`](./my-work/) — it will be empty until I add real entries.
+- **Media I follow:** See [`media/README.md`](./media/README.md).
 
-- [`papers/`](./papers/) — Peer-reviewed papers, preprints, and technical publications.
-- [`patents/`](./patents/) — Patents and patent applications.
-- [`talks/`](./talks/) — Conference talks, keynotes, workshops, and meetup presentations.
-- [`media/`](./media/) — Podcasts, panels, interviews, and other media appearances.
+## Adding an entry
 
-## Adding a new entry
-
-1. Use the template in the relevant directory:
-   - [`papers/template.md`](./papers/template.md)
-   - [`patents/template.md`](./patents/template.md)
-   - An existing talk entry under [`talks/`](./talks/)
-2. Fill in the YAML frontmatter and any supporting details.
+1. For influential work: add a Markdown file with YAML frontmatter to `influential-papers/` or `influential-talks/`.
+2. For my own work: copy a template from `my-work/` and fill it in.
 3. Run `make index` to regenerate this README.
 4. Review the diff before committing.
 

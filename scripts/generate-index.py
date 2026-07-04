@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-"""Generate the main README.md index from publication and talk entries."""
+"""Generate the main README.md index from influential papers, talks, and my-work templates."""
 
-import os
 import re
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -12,7 +10,6 @@ INDEX_END = "<!-- INDEX_END -->"
 
 
 def _strip_quotes(value: str) -> str:
-    """Remove matching surrounding quotes from a scalar value."""
     value = value.strip()
     if len(value) >= 2 and value[0] == value[-1] and value[0] in ('"', "'"):
         return value[1:-1]
@@ -20,11 +17,9 @@ def _strip_quotes(value: str) -> str:
 
 
 def _parse_inline_list(value: str) -> list[str]:
-    """Parse a '["a", "b"]' or '[a, b]' style inline list."""
     value = value.strip()
     if value.startswith("[") and value.endswith("]"):
         inner = value[1:-1]
-        # Split on commas not inside quotes
         items = re.split(r",\s*(?=(?:[^'\"]*['\"][^'\"]*['\"])*[^'\"]*$)", inner)
         return [_strip_quotes(item) for item in items if item.strip()]
     return []
@@ -62,7 +57,6 @@ def parse_frontmatter(path: Path) -> dict:
         in_list = False
 
     for line in fm.splitlines():
-        # New top-level key (no leading whitespace)
         m = re.match(r"^(\w+):\s*(.*)$", line)
         if m and not line.startswith((" ", "\t")):
             flush()
@@ -77,14 +71,12 @@ def parse_frontmatter(path: Path) -> dict:
                     value_lines = []
             continue
 
-        # List item under the current key
         list_match = re.match(r"^[ \t]+-\s+(.*)$", line)
         if list_match and key is not None and not value_lines:
             in_list = True
             list_items.append(_strip_quotes(list_match.group(1).strip()))
             continue
 
-        # Continuation of a scalar value
         if key is not None and not in_list:
             value_lines.append(line)
 
@@ -93,15 +85,12 @@ def parse_frontmatter(path: Path) -> dict:
 
 
 def collect_entries(directory: Path) -> list[tuple[Path, dict]]:
-    """Collect markdown files with YAML frontmatter under directory.
-
-    Skips template files so the index only shows real entries.
-    """
+    """Collect markdown files with YAML frontmatter, skipping templates and READMEs."""
     entries = []
     if not directory.exists():
         return entries
     for path in sorted(directory.rglob("*.md")):
-        if path.name.lower() == "template.md":
+        if path.name.lower() in ("template.md", "readme.md"):
             continue
         fm = parse_frontmatter(path)
         if fm:
@@ -114,90 +103,89 @@ def rel(path: Path) -> str:
 
 
 def fmt_link(text: str, url: str) -> str:
-    if not text or text == "-":
+    if not text or not url or url in ("-", ""):
         return "-"
     return f"[{text}]({url})"
 
 
-def build_talks_section(entries: list[tuple[Path, dict]]) -> str:
-    lines = ["## Talks", "", "| Date | Title | Event | Location | Resources |", "|------|-------|-------|----------|-----------|"]
-    if not entries:
-        lines.append("| - | - | - | - | - |")
-    for path, fm in entries:
-        title = _normalize_title(fm.get("title", "[Title]"))
-        date = fm.get("date", "YYYY-MM-DD")
-        event = fm.get("event", "[Event]")
-        location = fm.get("location", "[Location]")
-        links = []
-        if fm.get("slides_link"):
-            links.append(fmt_link("Slides", fm["slides_link"]))
-        if fm.get("recording_link"):
-            links.append(fmt_link("Recording", fm["recording_link"]))
-        resources = ", ".join(links) if links else "-"
-        lines.append(f"| {date} | [{title}]({rel(path)}) | {event} | {location} | {resources} |")
-    lines.append("")
-    return "\n".join(lines)
-
-
 def _normalize_title(title: str) -> str:
-    """Avoid double square brackets when the title itself is placeholder-like."""
     title = title.strip()
     if title.startswith("[") and title.endswith("]"):
         title = title[1:-1]
     return title
 
 
-def build_papers_section(entries: list[tuple[Path, dict]]) -> str:
-    lines = ["## Papers", "", "| Year | Title | Authors | Venue | Links |", "|------|-------|---------|-------|-------|"]
+def build_influential_papers_section(entries: list[tuple[Path, dict]]) -> str:
+    lines = [
+        "## Influential Papers",
+        "",
+        "Papers by others that shaped how I think about production ML, platform engineering, and ML security.",
+        "",
+        "| Year | Title | Authors | Why it matters |",
+        "|------|-------|---------|----------------|",
+    ]
     if not entries:
-        lines.append("| - | - | - | - | - |")
+        lines.append("| - | - | - | - |")
     for path, fm in entries:
         title = _normalize_title(fm.get("title", "[Title]"))
         year = fm.get("year", "YYYY")
         authors = ", ".join(fm["authors"]) if isinstance(fm.get("authors"), list) else fm.get("authors", "[Authors]")
-        venue = fm.get("venue", "[Venue]")
-        links = [fmt_link("Paper", rel(path))]
-        if fm.get("doi"):
-            links.append(fmt_link("DOI", f"https://doi.org/{fm['doi']}"))
-        if fm.get("link"):
-            links.append(fmt_link("Link", fm["link"]))
-        lines.append(f"| {year} | [{title}]({rel(path)}) | {authors} | {venue} | {', '.join(links)} |")
+        why = fm.get("why_it_matters", "")
+        if len(why) > 120:
+            why = why[:117] + "..."
+        lines.append(f"| {year} | [{title}]({rel(path)}) | {authors} | {why} |")
     lines.append("")
     return "\n".join(lines)
 
 
-def build_patents_section(entries: list[tuple[Path, dict]]) -> str:
-    lines = ["## Patents", "", "| Filing Date | Title | Inventors | Number | Links |", "|-------------|-------|-----------|--------|-------|"]
+def build_influential_talks_section(entries: list[tuple[Path, dict]]) -> str:
+    lines = [
+        "## Influential Talks",
+        "",
+        "Talks, courses, and lectures by others that I return to regularly.",
+        "",
+        "| Year | Title | Speaker | Why it matters |",
+        "|------|-------|---------|----------------|",
+    ]
     if not entries:
-        lines.append("| - | - | - | - | - |")
+        lines.append("| - | - | - | - |")
     for path, fm in entries:
         title = _normalize_title(fm.get("title", "[Title]"))
-        filing = fm.get("filing_date", "YYYY-MM-DD")
-        inventors = ", ".join(fm["inventors"]) if isinstance(fm.get("inventors"), list) else fm.get("inventors", "[Inventors]")
-        number = fm.get("number", "[Number]")
-        links = [fmt_link("Details", rel(path))]
-        if fm.get("link"):
-            links.append(fmt_link("Record", fm["link"]))
-        lines.append(f"| {filing} | [{title}]({rel(path)}) | {inventors} | {number} | {', '.join(links)} |")
+        year = fm.get("year", "YYYY")
+        speaker = fm.get("speaker", "[Speaker]")
+        why = fm.get("why_it_matters", "")
+        if len(why) > 120:
+            why = why[:117] + "..."
+        lines.append(f"| {year} | [{title}]({rel(path)}) | {speaker} | {why} |")
     lines.append("")
     return "\n".join(lines)
+
+
+def build_my_work_section() -> str:
+    return (
+        "## My Work\n"
+        "\n"
+        "A place for my own papers, patents, and talks. Templates are provided in "
+        "[`my-work/`](./my-work/); I will replace them with real entries as I publish them.\n"
+        "\n"
+        "| Type | Status | Template |\n"
+        "|------|--------|----------|\n"
+        "| Papers | Empty | [`my-work/papers/template.md`](./my-work/papers/template.md) |\n"
+        "| Patents | Empty | [`my-work/patents/template.md`](./my-work/patents/template.md) |\n"
+        "| Talks | Empty | [`my-work/talks/template.md`](./my-work/talks/template.md) |\n"
+    )
 
 
 def generate_index() -> str:
-    talks = collect_entries(ROOT / "talks")
-    papers = collect_entries(ROOT / "papers")
-    patents = collect_entries(ROOT / "patents")
+    papers = collect_entries(ROOT / "influential-papers")
+    talks = collect_entries(ROOT / "influential-talks")
 
     sections = []
     if papers:
-        sections.append(build_papers_section(papers))
-    if patents:
-        sections.append(build_patents_section(patents))
+        sections.append(build_influential_papers_section(papers))
     if talks:
-        sections.append(build_talks_section(talks))
-
-    if not sections:
-        return f"{INDEX_START}\n\n_No entries yet._\n\n{INDEX_END}"
+        sections.append(build_influential_talks_section(talks))
+    sections.append(build_my_work_section())
 
     return f"{INDEX_START}\n\n" + "\n".join(sections) + f"{INDEX_END}"
 
@@ -206,16 +194,12 @@ def update_readme() -> None:
     readme_path = ROOT / "README.md"
     new_index = generate_index()
 
-    if readme_path.exists():
-        content = readme_path.read_text(encoding="utf-8")
-    else:
-        content = ""
+    content = readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
 
     pattern = re.compile(re.escape(INDEX_START) + ".*?" + re.escape(INDEX_END), re.DOTALL)
     if pattern.search(content):
         content = pattern.sub(new_index, content)
     else:
-        # Append if markers are missing
         if content and not content.endswith("\n"):
             content += "\n"
         content += new_index + "\n"
