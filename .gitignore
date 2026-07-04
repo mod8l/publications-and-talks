@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Node / static site generators
+node_modules/
+/site
+_site/
+dist/
+
+# Python
+__pycache__/
+*.py[cod]
+.env
+.venv/
+
+# Generated files
+index.html
