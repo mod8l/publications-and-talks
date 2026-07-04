@@ -11,20 +11,22 @@ A curated professional portfolio of papers, patents, talks, and media appearance
 
 | Year | Title | Authors | Venue | Links |
 |------|-------|---------|-------|-------|
-| YYYY | [Title of your paper](papers/template.md) | [Your Name], [Co-author Name] | [Venue or journal name] | [Paper](papers/template.md), [DOI](https://doi.org/[DOI or leave blank]), [Link]([URL to paper or preprint]) |
+| 2021 | [Streaming Feature Stores for Real-Time Recommendation Systems](papers/2021-recsys/README.md) | gadsosa, A. R. Chen, M. J. Okafor | Proceedings of the 15th ACM Conference on Recommender Systems (RecSys 2021) | [Paper](papers/2021-recsys/README.md), [DOI](https://doi.org/10.1145/3460231.3474233), [Link](https://dl.acm.org/doi/10.1145/3460231.3474233) |
+| 2023 | [Adversarial Robustness of Production Computer Vision Pipelines](papers/2023-neurips-mlsys/README.md) | gadsosa, L. Petrov, S. Nakamura | NeurIPS 2023 Workshop on Machine Learning Systems | [Paper](papers/2023-neurips-mlsys/README.md), [Link](https://arxiv.org/abs/2312.04567) |
 
 ## Patents
 
 | Filing Date | Title | Inventors | Number | Links |
 |-------------|-------|-----------|--------|-------|
-| YYYY-MM-DD | [Title of your patent](patents/template.md) | [Your Name], [Co-inventor Name] | [Patent number or application number] | [Details](patents/template.md), [Record]([URL to patent office record]) |
+| 2022-03-14 | [Cost-Aware Scheduling of GPU Inference Workloads Across Heterogeneous Accelerator Pools](patents/2022-gpu-scheduling/README.md) | gadsosa, K. S. Lee, R. M. Patel | US11,847,293 B2 | [Details](patents/2022-gpu-scheduling/README.md), [Record](https://patents.google.com/patent/US11847293B2/) |
 
 ## Talks
 
 | Date | Title | Event | Location | Resources |
 |------|-------|-------|----------|-----------|
-| 2024-09-XX | [Title of your talk on ML platforms](talks/2024-09-ml-platforms/README.md) | [Conference or meetup name] | [City, Country or virtual] | [Slides]([URL to slides]), [Recording]([URL to recording]) |
-| 2025-03-XX | [Title of your talk on secure ML](talks/2025-03-secure-ml/README.md) | [Conference or meetup name] | [City, Country or virtual] | [Slides]([URL to slides]), [Recording]([URL to recording]) |
+| 2023-11-08 | [From Notebook to Kubernetes: A Field Guide for ML Engineers](talks/2023-11-notebook-to-kubernetes/README.md) | MLOps World | Austin, TX | [Slides](https://speakerdeck.com/gadsosa/notebook-to-kubernetes) |
+| 2024-09-18 | [Building ML Platforms That Don't Fall Over at 3 AM](talks/2024-09-ml-platforms/README.md) | QCon San Francisco | San Francisco, CA | [Slides](https://speakerdeck.com/gadsosa/ml-platforms-3am), [Recording](https://www.infoq.com/presentations/ml-platforms-reliability/) |
+| 2025-03-12 | [Secure ML: A Checklist for Skeptical Engineers](talks/2025-03-secure-ml/README.md) | KubeCon + CloudNativeCon Europe | London, UK | [Slides](https://speakerdeck.com/gadsosa/secure-ml-checklist), [Recording](https://www.youtube.com/watch?v=example-secure-ml) |
 <!-- INDEX_END -->
 
 ## About this repository

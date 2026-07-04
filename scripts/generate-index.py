@@ -93,11 +93,16 @@ def parse_frontmatter(path: Path) -> dict:
 
 
 def collect_entries(directory: Path) -> list[tuple[Path, dict]]:
-    """Collect all markdown files with YAML frontmatter under directory."""
+    """Collect markdown files with YAML frontmatter under directory.
+
+    Skips template files so the index only shows real entries.
+    """
     entries = []
     if not directory.exists():
         return entries
     for path in sorted(directory.rglob("*.md")):
+        if path.name.lower() == "template.md":
+            continue
         fm = parse_frontmatter(path)
         if fm:
             entries.append((path, fm))
