@@ -3,11 +3,30 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE)
 [![CI](https://github.com/gadsosa/publications-and-talks/actions/workflows/ci.yml/badge.svg)](https://github.com/gadsosa/publications-and-talks/actions/workflows/ci.yml)
 
-A curated reading list of the papers, talks, and resources that shaped how I think about production ML, platform engineering, and ML security.
+A curated reading list of the papers, talks, and resources that shaped how I think about production ML, platform engineering, and ML security, plus original essays and talk abstracts from my work as a hands-on VP R&D.
 
-> **Note:** The papers and talks listed here are by other people and organizations. They are included with attribution because I reference them constantly in my work.
+> **Note:** The papers and talks listed under *Influential* sections are by other people and organizations. They are included with attribution because I reference them constantly in my work. The [essays](./essays/) and [talk abstracts](./talks/abstracts/) are my own original writing.
 
 <!-- INDEX_START -->
+
+## Essays
+
+Original thought leadership on production ML, ML leadership, and startup R&D.
+
+| Title |
+|-------|
+| [Hiring for Shipping, Not Just Research](essays/hiring-for-shipping-not-just-research.md) |
+| [The Production Gap in AI](essays/the-production-gap-in-ai.md) |
+| [What I Look for in an ML Startup](essays/what-i-look-for-in-an-ml-startup.md) |
+
+## Talk Abstracts
+
+Ready-to-submit abstracts for conference talks and keynotes.
+
+| Title | Focus |
+|-------|-------|
+| [Building ML Platforms at Startups: Less Infrastructure, More Outcomes](talks/abstracts/building-ml-platforms-startups.md) | A pragmatic approach to ML platform engineering for fast-moving startups. |
+| [From Demo to Production: The Hard Parts Nobody Shows](talks/abstracts/from-demo-to-production.md) | Production-readiness practices that close the gap between demos and real ML systems. |
 
 ## Influential Papers
 
@@ -33,12 +52,13 @@ Talks, courses, and lectures by others that I return to regularly.
 
 ## How to use this repo
 
+- **Looking for my writing:** Browse [`essays/`](./essays/) and [`talks/abstracts/`](./talks/abstracts/).
 - **Looking for what I read:** Browse [`influential-papers/`](./influential-papers/) and [`influential-talks/`](./influential-talks/).
 - **Media I follow:** See [`media/README.md`](./media/README.md).
 
 ## Adding an entry
 
-1. Add a Markdown file with YAML frontmatter to `influential-papers/` or `influential-talks/`.
+1. Add a Markdown file to `essays/` or a talk abstract to `talks/abstracts/`, or add YAML-frontmatter Markdown to `influential-papers/` or `influential-talks/`.
 2. Run `make index` to regenerate this README.
 3. Review the diff before committing.
 

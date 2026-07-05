@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the main README.md index from influential papers and talks."""
+"""Generate the main README.md index from essays, influential papers, and talks."""
 
 import re
 from pathlib import Path
@@ -98,6 +98,18 @@ def collect_entries(directory: Path) -> list[tuple[Path, dict]]:
     return entries
 
 
+def collect_essays(directory: Path) -> list[Path]:
+    """Collect essay markdown files without requiring YAML frontmatter."""
+    essays = []
+    if not directory.exists():
+        return essays
+    for path in sorted(directory.glob("*.md")):
+        if path.name.lower() == "readme.md":
+            continue
+        essays.append(path)
+    return essays
+
+
 def rel(path: Path) -> str:
     return str(path.relative_to(ROOT))
 
@@ -155,11 +167,75 @@ def build_influential_talks_section(entries: list[tuple[Path, dict]]) -> str:
     return "\n".join(lines)
 
 
+def _essay_title(path: Path) -> str:
+    """Use the first Markdown H1 heading as the essay title, if available."""
+    text = path.read_text(encoding="utf-8")
+    match = re.search(r"^#\s+(.+)$", text, re.MULTILINE)
+    if match:
+        return match.group(1).strip()
+    return path.stem.replace("-", " ").replace("_", " ").title()
+
+
+def build_essays_section(essays: list[Path]) -> str:
+    lines = [
+        "## Essays",
+        "",
+        "Original thought leadership on production ML, ML leadership, and startup R&D.",
+        "",
+        "| Title |",
+        "|-------|",
+    ]
+    if not essays:
+        lines.append("| - |")
+    for path in essays:
+        title = _essay_title(path)
+        lines.append(f"| [{title}]({rel(path)}) |")
+    lines.append("")
+    return "\n".join(lines)
+
+
+def _abstract_focus(path: Path) -> str:
+    """Extract the focus line from a talk abstract, if present."""
+    text = path.read_text(encoding="utf-8")
+    match = re.search(r"^## Focus\s*\n+(.+?)$", text, re.MULTILINE | re.DOTALL)
+    if match:
+        focus = " ".join(match.group(1).split())
+        if len(focus) > 100:
+            focus = focus[:97] + "..."
+        return focus
+    return ""
+
+
+def build_talk_abstracts_section(abstracts: list[Path]) -> str:
+    lines = [
+        "## Talk Abstracts",
+        "",
+        "Ready-to-submit abstracts for conference talks and keynotes.",
+        "",
+        "| Title | Focus |",
+        "|-------|-------|",
+    ]
+    if not abstracts:
+        lines.append("| - | - |")
+    for path in abstracts:
+        title = _essay_title(path)
+        focus = _abstract_focus(path)
+        lines.append(f"| [{title}]({rel(path)}) | {focus} |")
+    lines.append("")
+    return "\n".join(lines)
+
+
 def generate_index() -> str:
+    essays = collect_essays(ROOT / "essays")
+    abstracts = collect_essays(ROOT / "talks" / "abstracts")
     papers = collect_entries(ROOT / "influential-papers")
     talks = collect_entries(ROOT / "influential-talks")
 
     sections = []
+    if essays:
+        sections.append(build_essays_section(essays))
+    if abstracts:
+        sections.append(build_talk_abstracts_section(abstracts))
     if papers:
         sections.append(build_influential_papers_section(papers))
     if talks:
