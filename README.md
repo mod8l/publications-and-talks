@@ -1,7 +1,7 @@
 # Publications and Talks
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE)
-[![CI](https://github.com/gadsosa/publications-and-talks/actions/workflows/ci.yml/badge.svg)](https://github.com/gadsosa/publications-and-talks/actions/workflows/ci.yml)
+[![CI](https://github.com/mod8l/publications-and-talks/actions/workflows/ci.yml/badge.svg)](https://github.com/mod8l/publications-and-talks/actions/workflows/ci.yml)
 
 A curated reading list of the papers, talks, and resources that shaped how I think about production ML, platform engineering, and ML security, plus original essays and talk abstracts from my work as a hands-on VP R&D.
 
