@@ -3,9 +3,9 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE)
 [![CI](https://github.com/gadsosa/publications-and-talks/actions/workflows/ci.yml/badge.svg)](https://github.com/gadsosa/publications-and-talks/actions/workflows/ci.yml)
 
-A reading list of the papers, talks, and resources that shaped how I think about production ML, platform engineering, and ML security — plus a template area for my own future publications and talks.
+A curated reading list of the papers, talks, and resources that shaped how I think about production ML, platform engineering, and ML security.
 
-> **Note:** The influential papers and talks listed here are by other people. They are included with attribution because I reference them constantly in my work. My own publications and talks live (when they exist) in [`my-work/`](./my-work/).
+> **Note:** The papers and talks listed here are by other people and organizations. They are included with attribution because I reference them constantly in my work.
 
 <!-- INDEX_START -->
 
@@ -29,30 +29,18 @@ Talks, courses, and lectures by others that I return to regularly.
 | 2019 | [Machine Learning Systems Design](influential-talks/2019-huyen-ml-systems-design.md) | Chip Huyen | Chip Huyen is one of the clearest writers on the gap between research ML and production ML. Her framing of data, mode... |
 | 2021 | [Designing Machine Learning Systems](influential-talks/2021-jordan-ml-infrastructure.md) | Jeremy Jordan | Jordan’s writing distills the invisible work of ML infrastructure: monitoring, feature platforms, and the feedback lo... |
 | 2022 | [The Missing Link in AI: Production-Ready Machine Learning](influential-talks/2022-catanzaro-missing-link.md) | Sarah Catanzaro | Catanzaro makes the business case for ML infrastructure with unusual clarity. Her argument that model performance dec... |
-
-## My Work
-
-A place for my own papers, patents, and talks. Templates are provided in [`my-work/`](./my-work/); I will replace them with real entries as I publish them.
-
-| Type | Status | Template |
-|------|--------|----------|
-| Papers | Empty | [`my-work/papers/template.md`](./my-work/papers/template.md) |
-| Patents | Empty | [`my-work/patents/template.md`](./my-work/patents/template.md) |
-| Talks | Empty | [`my-work/talks/template.md`](./my-work/talks/template.md) |
 <!-- INDEX_END -->
 
 ## How to use this repo
 
 - **Looking for what I read:** Browse [`influential-papers/`](./influential-papers/) and [`influential-talks/`](./influential-talks/).
-- **Looking for my own work:** Check [`my-work/`](./my-work/) — it will be empty until I add real entries.
 - **Media I follow:** See [`media/README.md`](./media/README.md).
 
 ## Adding an entry
 
-1. For influential work: add a Markdown file with YAML frontmatter to `influential-papers/` or `influential-talks/`.
-2. For my own work: copy a template from `my-work/` and fill it in.
-3. Run `make index` to regenerate this README.
-4. Review the diff before committing.
+1. Add a Markdown file with YAML frontmatter to `influential-papers/` or `influential-talks/`.
+2. Run `make index` to regenerate this README.
+3. Review the diff before committing.
 
 ## License
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the main README.md index from influential papers, talks, and my-work templates."""
+"""Generate the main README.md index from influential papers and talks."""
 
 import re
 from pathlib import Path
@@ -102,12 +102,6 @@ def rel(path: Path) -> str:
     return str(path.relative_to(ROOT))
 
 
-def fmt_link(text: str, url: str) -> str:
-    if not text or not url or url in ("-", ""):
-        return "-"
-    return f"[{text}]({url})"
-
-
 def _normalize_title(title: str) -> str:
     title = title.strip()
     if title.startswith("[") and title.endswith("]"):
@@ -161,21 +155,6 @@ def build_influential_talks_section(entries: list[tuple[Path, dict]]) -> str:
     return "\n".join(lines)
 
 
-def build_my_work_section() -> str:
-    return (
-        "## My Work\n"
-        "\n"
-        "A place for my own papers, patents, and talks. Templates are provided in "
-        "[`my-work/`](./my-work/); I will replace them with real entries as I publish them.\n"
-        "\n"
-        "| Type | Status | Template |\n"
-        "|------|--------|----------|\n"
-        "| Papers | Empty | [`my-work/papers/template.md`](./my-work/papers/template.md) |\n"
-        "| Patents | Empty | [`my-work/patents/template.md`](./my-work/patents/template.md) |\n"
-        "| Talks | Empty | [`my-work/talks/template.md`](./my-work/talks/template.md) |\n"
-    )
-
-
 def generate_index() -> str:
     papers = collect_entries(ROOT / "influential-papers")
     talks = collect_entries(ROOT / "influential-talks")
@@ -185,7 +164,9 @@ def generate_index() -> str:
         sections.append(build_influential_papers_section(papers))
     if talks:
         sections.append(build_influential_talks_section(talks))
-    sections.append(build_my_work_section())
+
+    if not sections:
+        return f"{INDEX_START}\n\n_No entries yet._\n\n{INDEX_END}"
 
     return f"{INDEX_START}\n\n" + "\n".join(sections) + f"{INDEX_END}"
 
